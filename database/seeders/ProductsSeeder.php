@@ -2,19 +2,21 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ExternalDataRequestEnum;
+use App\Services\GetExternalDataService;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Http\Integrations\Products\Requests\ProductsRequest;
+use Sammyjo20\Saloon\Exceptions\SaloonException;
 
 class ProductsSeeder extends Seeder
 {
-    public function run()
+    public function run(GetExternalDataService $externalDataService): void
     {
-        $request = new ProductsRequest();
+        $response = $externalDataService->get('products');
 
-        $response = $request->send();
-
-        foreach ($response->json()['products'] as $value) {
+        foreach ($response['products'] as $value) {
             DB::table('Products')->insert([
                 'name' => $value['title'],
                 'description' => $value['description'],

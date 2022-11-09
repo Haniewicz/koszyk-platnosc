@@ -16,7 +16,7 @@ class ProductsConnector extends SaloonConnector
      */
     public function defineBaseUrl(): string
     {
-        return 'https://dummyjson.com/products?limit=20';
+        return 'https://dummyjson.com/products?limit=20&select=title,price,description,category';
     }
 
     /**

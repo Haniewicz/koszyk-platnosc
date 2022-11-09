@@ -14,11 +14,6 @@ class CategoriesConnector extends SaloonConnector
         return 'https://dummyjson.com/products/categories';
     }
 
-    public function defaultHeaders(): array
-    {
-        return [];
-    }
-
     public function defaultConfig(): array
     {
         return [

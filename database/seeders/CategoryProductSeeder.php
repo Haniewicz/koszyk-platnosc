@@ -2,29 +2,31 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ExternalDataRequestEnum;
+use App\Services\GetExternalDataService;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Seeder;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Http\Integrations\Products\Requests\ProductsRequest;
+use Sammyjo20\Saloon\Exceptions\SaloonException;
 
 class CategoryProductSeeder extends Seeder
 {
-    public function run()
+    public function run(GetExternalDataService $externalDataService): void
     {
         $categories = Category::all();
 
-        $request = new ProductsRequest();
-
-        $response = $request->send();
+        $response = $externalDataService->get('products');
 
         foreach ($categories as $category) {
-            foreach ($response->json()['products'] as $product) {
-                if($product['category'] == $category['name'])
+            foreach ($response['products'] as $product) {
+                if($product['category'] === $category['name'])
                 {
                     DB::table('category_product')->insert([
                         'category_id' => $category['id'],
-                        'product_id' => Product::where('name', $product['title'])->first('id')->id,
+                        'product_id' => Product::query()->where('name', $product['title'])->first('id')->id,
                     ]);
                 }
             }

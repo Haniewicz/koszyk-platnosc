@@ -1,0 +1,13 @@
+<?php
+//This is Service file. You should write your logic in here
+namespace {{ namespace }};
+
+class {{ class }}
+{
+    function handle()
+    {
+
+    }
+}
+
+?>
