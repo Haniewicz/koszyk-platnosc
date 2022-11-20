@@ -20,7 +20,7 @@ class CreatePaymentsTable extends Migration
             $table->string('provider');
             $table->datetime('paid_at');
             $table->string('external_id');
-            $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
         });
     }
 

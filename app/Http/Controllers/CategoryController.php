@@ -6,6 +6,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\Category\StoreUpdateRequest;
 use App\Services\CategoryService;
+use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Category\CategoryCollection;
 use App\Models\Category;
 
 class CategoryController extends Controller
@@ -17,7 +19,7 @@ class CategoryController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(
-            Category::all()
+            new CategoryCollection(Category::all())
         );
     }
 
@@ -27,12 +29,16 @@ class CategoryController extends Controller
         $category = $this->categoryService->assignAttributes(
             data_get($data, 'name')
         )->getCategory();
-        return response()->json($category);
+        return response()->json(
+            new CategoryResource($category)
+        );
     }
 
     public function show(Category $category): JsonResponse
     {
-        return response()->json($category);
+        return response()->json(
+            new CategoryResource($category)
+        );
     }
 
 
@@ -42,7 +48,9 @@ class CategoryController extends Controller
         $category = $this->categoryService->setCategory($category)->assignAttributes(
             data_get($data, 'name')
         )->getCategory();
-        return response()->json($category);
+        return response()->json(
+            new CategoryResource($category)
+        );
     }
 
     public function destroy(Category $category): JsonResponse

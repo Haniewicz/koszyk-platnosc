@@ -4,6 +4,8 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+Use App\Models\Cart;
+use Illuminate\Support\Str;
 
 class AuthService
 {
