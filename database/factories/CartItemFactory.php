@@ -3,12 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\Cart;
-use App\Models\Cart_item;
+use App\Models\CartItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class Cart_itemFactory extends Factory
+class CartItemFactory extends Factory
 {
-    protected $model = Cart_item::class;
+    protected $model = CartItem::class;
 
     public function definition(): array
     {

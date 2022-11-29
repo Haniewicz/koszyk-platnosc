@@ -4,7 +4,7 @@ namespace App\Http\Resources\CartItem;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CartItemCollection extends ResourceCollection
+class CartCollection extends ResourceCollection
 {
     public function toArray($request)
     {

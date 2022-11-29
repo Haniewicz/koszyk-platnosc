@@ -15,9 +15,9 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->json('delivery_address');
-            $table->set('status', ['created','proccessing','accepted']);
+            $table->set('status', ['created','accepted']);
         });
     }
 
